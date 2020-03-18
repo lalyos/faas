@@ -1,3 +1,14 @@
+## Note
+this is a fork to make run easier (in a container):
+```
+docker run -d \
+  --name faas \
+  -v faas-img:/images \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -p 8090:8090 \
+  lalyos/faas
+```
+
 # faas
 
 Make any (Go) function into an API with one HTTP request.
