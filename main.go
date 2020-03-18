@@ -195,7 +195,11 @@ func (s *Server) handle(w http.ResponseWriter, r *http.Request) (body []byte, er
 		return
 	}
 
-	redirectURL := fmt.Sprintf("http://localhost:%s%s?%s", portFound, r.URL.Path, r.URL.RawQuery)
+	host := "localhost"
+	if info, _ := os.Stat("/.dockerenv"); info != nil {
+		host = "172.17.0.1"
+	}
+	redirectURL := fmt.Sprintf("http://%s:%s%s?%s", host, portFound, r.URL.Path, r.URL.RawQuery)
 	log.Debugf("getting data from %s", redirectURL)
 	var resp *http.Response
 	if r.Method == "GET" {
